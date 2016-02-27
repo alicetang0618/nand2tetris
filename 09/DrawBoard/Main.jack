@@ -1,0 +1,27 @@
+/**
+ * The Main class initializes a new game and starts it.
+ */
+class Main {
+
+    /** Initializes a new game and starts it. */    
+    function void main() {
+
+        var DrawBoard game;
+        var int x;
+        var int y;
+        var int size;
+
+        // read parameters from user input.
+        let size = Keyboard.readInt("Choose an eraser size (eg. 10): ");
+    	let x = Keyboard.readInt("Start position x (eg. 100): ");
+    	let y = Keyboard.readInt("Start position y (eg. 50): ");
+    	do Screen.clearScreen();
+
+        let game = DrawBoard.new(x, y, size);
+
+        do game.run();
+        do game.dispose();
+
+        return;
+    }
+}

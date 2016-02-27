@@ -1,0 +1,135 @@
+/**
+ * Implements the Eraser game.
+ * The black circle is what you are going to erase, and the black square is your eraser.
+ * You can move the black square around the screen and change its size during the movement.
+ * Everytime when the black square moves, the black circle moves in the same direction accordingly, causing the black area to expand.
+ * If the eraser moves past the black circle area, the part of circle intersected with the movement trace will be erased.
+ * In the beginning, you can specify the initial size and position of your eraser. Hit "return" key after inputting a number. The circle and square will appear after you input the parameters. 
+
+ * The arrow keys are used to move the square.
+ * The 'z' & 'x' keys are used to decrement and increment the size.
+ * The 'q' key is used to quit the game.
+ */
+
+class DrawBoard {
+
+    field Square square;
+    field Circle circle;
+
+    // The movement direction of square and circle
+    field int direction;
+
+    /** Constructs a new DrawBoard Game. */
+    constructor DrawBoard new(int x, int y, int size) {
+
+        var int xLoc;
+        var int yLoc;
+
+        let xLoc = 510 - y;
+        let yLoc = 254 - x;
+
+        if (xLoc - (size/2) < 0) {
+            let xLoc = xLoc+510-size;
+        } else {
+            if (xLoc + (size/2) > 510) {
+                let xLoc = xLoc-size/2;
+            }
+        }
+
+        if (yLoc - (size/2) < 0) {
+            let yLoc = yLoc+254-size;
+            if (yLoc - (size/2) < 0) {
+                let yLoc = yLoc+254-size;
+            } 
+        } else {
+            if (yLoc + (size/2) > 254) {
+                let yLoc = yLoc-size/2;
+            }
+        }
+        
+        let circle = Circle.new(xLoc, yLoc, size/2);
+        let square = Square.new(x, y, size);
+        let direction = 0;
+
+        return this;
+    }
+
+    /** Deallocates the object's memory. */
+    method void dispose() {
+        do circle.dispose();
+        do square.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Starts the game. Handles inputs from the user that control
+     *  the movement, direction and size. */
+    method void run() {
+        var char key;
+        var boolean exit;
+
+        let exit = false;
+
+        while (~exit) {
+            // waits for a key to be pressed.
+            while (key = 0) {
+                let key = Keyboard.keyPressed();
+                do move();
+            }
+
+            if (key = 81) {
+                let exit = true;
+            }
+            if (key = 90) {
+                do square.decSize();
+            }
+            if (key = 88) {
+                do square.incSize();
+            }
+            if (key = 131) {
+                let direction = 1;
+            }
+            if (key = 133) {
+                let direction = 2;
+            }
+            if (key = 130) {
+                let direction = 3;
+            }
+            if (key = 132) {
+                let direction = 4;
+            }
+
+            // waits for the key to be released.
+            while (~(key = 0)) {
+                let key = Keyboard.keyPressed();
+                do move();
+            }
+        }
+            
+        return;
+    }
+
+    /** Moves the square and circle by one unit in the current direction. */
+    method void move() {
+
+        if (direction = 1) {
+            do square.moveUp();
+            do circle.moveUp();
+        }
+        if (direction = 2) {
+            do square.moveDown();
+            do circle.moveDown();
+        }
+        if (direction = 3) {
+            do square.moveLeft();
+            do circle.moveLeft();
+        }
+        if (direction = 4) {
+            do square.moveRight();
+            do circle.moveRight();
+        }
+        do Sys.wait(100); 
+
+        return;
+    }
+}

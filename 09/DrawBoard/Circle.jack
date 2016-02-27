@@ -1,0 +1,75 @@
+/**
+ * Implements a graphic circle. It has a screen location and a radius.
+ */
+class Circle {
+
+    // Location on the screen
+    field int x, y;
+
+    // The size of the circle
+    field int radius;
+
+    /** Constructs a new circle with a given location and size. */
+    constructor Circle new(int Ax, int Ay, int Asize) {
+        let x = Ax;
+        let y = Ay;
+        let radius = Asize;
+
+        do draw();
+
+        return this;
+    }
+
+    /** Deallocates the object's memory. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Draws the circle on the screen. */
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawCircle(x, y, radius);
+        return;
+    }
+
+    /** Moves up by 2 pixels. */
+    method void moveUp() {
+        if ((y - 2 - radius) > 1) {
+            let y = y - 2;
+            do Screen.setColor(true);
+            do Screen.drawCircle(x, y, radius);
+        }
+        return;
+    }
+
+    /** Moves down by 2 pixels. */
+    method void moveDown() {
+        if ((y + 2 + radius) < 253) {
+            let y = y + 2;
+            do Screen.setColor(true);
+            do Screen.drawCircle(x, y, radius);
+        }
+        return;
+    }
+
+    /** Moves left by 2 pixels. */
+    method void moveLeft() {
+        if ((x - 2 - radius) > 1) {
+            let x = x - 2;
+            do Screen.setColor(true);
+            do Screen.drawCircle(x, y, radius);
+        }
+        return;
+    }
+
+    /** Moves right by 2 pixels. */
+    method void moveRight() {
+        if ((x + 2 + radius) < 509) {
+            let x = x + 2;
+            do Screen.setColor(true);
+            do Screen.drawCircle(x, y, radius);
+        }
+        return;
+    }
+}
