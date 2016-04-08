@@ -1,0 +1,18 @@
+function BankAccount.commission 0
+push argument 0
+pop pointer 0
+function BankAccount.transfer 3
+push argument 0
+pop pointer 0
+push this 2
+push argument 1
+add
+push pointer 0
+push argument 1
+push constant 5
+call Math.multiply 2
+call BankAccount.commission 2
+sub
+pop this 2
+push constant 0
+return

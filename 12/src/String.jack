@@ -1,0 +1,144 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/String.jack
+
+/**
+ * Represents a String object. Implements the String type.
+ */
+class String {
+    field Array str;
+    field int currLen, maxLen;
+
+    /** Constructs a new empty String with a maximum length of maxLength. */
+    constructor String new(int maxLength) {
+        if (maxLength < 0) {
+            do Sys.error(0);
+        }
+        if (maxLength = 0) {
+            let maxLength = 1;
+        }
+        let currLen = 0;
+        let maxLen = maxLength;
+        let str = Array.new(maxLength);
+        return this;
+    }
+
+    /** De-allocates the string and frees its space. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Returns the current length of this String. */
+    method int length() {
+        return currLen;
+    }
+
+    /** Returns the character at location j. */
+    method char charAt(int j) {
+        if (~(j < currLen)) {
+            do Sys.error(1);
+        }
+        return str[j];
+    }
+
+    /** Sets the j'th character of this string to be c. */
+    method void setCharAt(int j, char c) {
+        if (~(j < currLen)) {
+            do Sys.error(2);
+        }
+        let str[j] = c;
+        return;
+    }
+
+    /** Appends the character c to the end of this String.
+     *  Returns this string as the return value. */
+    method String appendChar(char c) {
+        if (currLen = maxLen) {
+            do Sys.error(3);
+        }
+        let str[currLen] = c;
+        let currLen = currLen + 1;
+        return this;
+    }
+
+    /** Erases the last character from this String. */
+    method void eraseLastChar() {
+        if (currLen = 0) {
+            do Sys.error(4);
+        }
+        let currLen = currLen - 1;
+        return;
+    }
+
+    /** Returns the integer value of this String until the first non
+     *  numeric character. */
+    method int intValue() {
+        var int i, sum;
+        var boolean minus;
+
+        let i = 0;
+        let sum = 0;
+        let minus = false;
+
+        if ((currLen > 0) & (str[0] = 45)) {
+            let minus = true;
+            let i = 1;
+        }
+
+        while ((i < currLen) & (str[i] > 47) & (str[i] < 58)) {
+            let sum = str[i] - 48 + (sum * 10);
+            let i = i + 1;
+        }
+
+        if (minus) {
+            let sum = -sum;
+        }
+
+        return sum;
+    }
+
+    /** Sets this String to hold a representation of the given number. */
+    method void setInt(int number) {
+        let currLen = 0;
+
+        if (number < 0) {
+            do appendChar(45);
+            let number = -number;
+        }
+
+        do setIntHelper(number);
+        return;
+    }
+
+    /** Helper function for setInt(). */
+    method void setIntHelper(int number) {
+        var int lastDigit;
+
+        let lastDigit = number - (10 * (number / 10));
+        if (number < 10) {
+            do appendChar(lastDigit + 48);
+        } else {
+            do setIntHelper(number/10);
+            do appendChar(lastDigit + 48);
+        }
+
+        return;
+    }
+
+    /** Returns the new line character. */
+    function char newLine() {
+        return 128;
+    }
+
+    /** Returns the backspace character. */
+    function char backSpace() {
+        return 129;
+    }
+
+    /** Returns the double quote (") character. */
+    function char doubleQuote() {
+        return 34;
+    }
+}

@@ -1,0 +1,74 @@
+<class>
+  <keyword> class </keyword>
+  <identifier> Main </identifier>
+  <<<<id> category: class>
+  <symbol> { </symbol>
+  <subroutineDec>
+    <keyword> function </keyword>
+    <keyword> void </keyword>
+    <identifier> main </identifier>
+    <<<<id> category: subroutine>
+    <symbol> ( </symbol>
+    <parameterList>
+    </parameterList>
+    <symbol> ) </symbol>
+    <subroutineBody>
+      <symbol> { </symbol>
+      <varDec>
+        <keyword> var </keyword>
+        <identifier> SquareGame </identifier>
+        <<<<id> category: class>
+        <identifier> game </identifier>
+        <<<<id> category: var, used: 1, running: 0>
+        <symbol> ; </symbol>
+      </varDec>
+      <statements>
+        <letStatement>
+          <keyword> let </keyword>
+          <identifier> game </identifier>
+          <<<<id> category: var, used: 1, running: 0>
+          <symbol> = </symbol>
+          <expression>
+            <term>
+              <identifier> game </identifier>
+              <<<<id> category: var, used: 1, running: 0>
+            </term>
+          </expression>
+          <symbol> ; </symbol>
+        </letStatement>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> game </identifier>
+          <<<<id> category: class>
+          <symbol> . </symbol>
+          <identifier> run </identifier>
+          <<<<id> category: subroutine>
+          <symbol> ( </symbol>
+          <expressionList>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <doStatement>
+          <keyword> do </keyword>
+          <identifier> game </identifier>
+          <<<<id> category: class>
+          <symbol> . </symbol>
+          <identifier> dispose </identifier>
+          <<<<id> category: subroutine>
+          <symbol> ( </symbol>
+          <expressionList>
+          </expressionList>
+          <symbol> ) </symbol>
+          <symbol> ; </symbol>
+        </doStatement>
+        <returnStatement>
+          <keyword> return </keyword>
+          <symbol> ; </symbol>
+        </returnStatement>
+      </statements>
+      <symbol> } </symbol>
+    </subroutineBody>
+  </subroutineDec>
+  <symbol> } </symbol>
+</class>
